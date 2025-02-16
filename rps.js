@@ -56,19 +56,56 @@ try {
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
-        alert("It's a tie!");
         return "It's a tie!";
 
     } else if (humanChoice === 'rock' && computerChoice === 'scissors' ||
         humanChoice === 'paper' && computerChoice === 'rock' ||
         humanChoice === 'scissors' && computerChoice === 'paper') {
         humanScore++;
-        alert("You win!");
         return "You win!";
     } else {
         computerScore++;
-        alert("You lose!");
         return "You lose!";
     }
 }
 
+//play 5 rounds
+
+function playGame(round = 1) {
+    if (round > 5) {
+        alert(`Final Score: Human ${humanScore} - Computer ${computerScore}`);
+        if (confirm("Do you want to play another round?")) {
+            humanScore = 0;
+            computerScore = 0;
+            playGame();
+        }
+        return;
+    }
+
+    let humanChoice;
+    while (true) {
+        let sign = prompt("Rock, paper, or scissors?");
+        try {
+            humanChoice = getHumanChoice(sign.toLowerCase());
+            break;
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
+    let computerChoice = getComputerChoice();
+    console.log("Human choice:", humanChoice);
+    console.log("Computer choice:", computerChoice);
+    alert("Computer choice: " + computerChoice);
+
+    let result = playRound(humanChoice, computerChoice);
+    alert(result);
+
+    // Display the current score
+    alert(`Current Score: Human ${humanScore} - Computer ${computerScore}`);
+
+    playGame(round + 1);
+}
+
+// Call the playGame function to start the game
+playGame();
