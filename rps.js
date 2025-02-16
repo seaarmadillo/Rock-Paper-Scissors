@@ -14,6 +14,11 @@ function getComputerChoice() {
     }
 }
 
+//score
+
+let humanScore = 0;
+let computerScore = 0;
+
 //user input options are rock, paper, or scissors, otherwise it is an error
 
   
@@ -32,9 +37,38 @@ function getHumanChoice(choice) {
 let sign = prompt("Rock, paper, or scissors?");
 try {
     let humanChoice = getHumanChoice(sign.toLowerCase());
+    let computerChoice = getComputerChoice();
     console.log("Human choice:", humanChoice);
-    console.log("Computer choice:", getComputerChoice());
-    alert("Computer choice: " + getComputerChoice());
+    console.log("Computer choice:", computerChoice);
+    alert("Computer choice: " + computerChoice);
+
+    let result = playRound(humanChoice, computerChoice);
+    alert(result);    
+
 } catch (error) {
     console.error(error.message);
 }
+
+
+
+
+//playing a round
+
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        alert("It's a tie!");
+        return "It's a tie!";
+
+    } else if (humanChoice === 'rock' && computerChoice === 'scissors' ||
+        humanChoice === 'paper' && computerChoice === 'rock' ||
+        humanChoice === 'scissors' && computerChoice === 'paper') {
+        humanScore++;
+        alert("You win!");
+        return "You win!";
+    } else {
+        computerScore++;
+        alert("You lose!");
+        return "You lose!";
+    }
+}
+
